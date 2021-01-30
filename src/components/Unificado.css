@@ -1,0 +1,114 @@
+
+#conversor{
+    width:75%;
+    height: auto;
+}
+
+#imagemTemperatura{
+    height: 50px;
+}
+
+
+#imagemPokemon{
+    height: 200px;
+    width: 200px;
+    border-radius: 10px;
+   
+}
+
+h2{
+
+    width: fit-content;
+    margin: 0px 0px 0px 0px;
+}
+h3{
+
+    margin:5px;
+}
+
+#Pokemon{
+    
+    
+    width: 350px;
+    height: 270px;
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    color: black;
+    border: solid rgb(206, 200, 200) 10px;
+    }
+
+#Previsao{
+  
+    height: fit-content;
+    width: 350px;
+
+    border-radius: 5px;
+    background-color: rgb(13, 54, 26);
+    border: solid black 5px;
+    padding: 15px;
+}
+
+#exibicao{
+    
+    display: flex;
+    flex-direction: row;
+    align-items:initial;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+}
+#temp{
+
+    width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-around;  
+
+}
+
+header{
+    width: 100%;
+    margin:30px 20px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#PokemonConteudo{
+
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#PrevisaoConteudo{
+
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#botao{
+    width: fit-content;
+    background-color: green;
+    border-radius: 50%;
+    border: none
+}
+
+#estado{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}

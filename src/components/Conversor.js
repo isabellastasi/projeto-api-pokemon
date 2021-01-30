@@ -46,6 +46,7 @@ export default class Conversor extends React.Component {
 
     }
 
+    
     render() {
         return (
             <div className="conversor">

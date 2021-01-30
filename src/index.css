@@ -1,5 +1,14 @@
 body{
-    background-color: black;
+    height: 100%;
+    width: 100%;
+    background-color: #CC0000;
     color: white;
-    font-family: 'Trebuchet MS';
+    font-family:Verdana;
+    text-transform: uppercase;
+
+}
+#root{
+
+    height: 100%;
+    width: 100%;
 }
