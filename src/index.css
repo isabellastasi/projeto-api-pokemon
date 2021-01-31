@@ -1,14 +1,9 @@
 body{
     height: 100%;
     width: 100%;
-    background-color: #CC0000;
+    background-color: hsl(0, 100%, 40%);
     color: white;
-    font-family:Verdana;
+    font-family: Courier;
     text-transform: uppercase;
-
-}
-#root{
-
-    height: 100%;
-    width: 100%;
+    
 }

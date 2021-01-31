@@ -3,6 +3,7 @@ import Rain from './imagens/Rainw.png'
 import Snow from './imagens/Snoww.png'
 import Clouds from './imagens/Cloudsw.png'
 import Clear from './imagens/Clearw.png'
+import Pokemon from './imagens/pokemon-logo.png'
 import './Unificado.css'
 
 
@@ -19,7 +20,7 @@ export default class Conversor extends React.Component {
             pokemon: "",
             pokemonType: "",
             imagem: "",
-            sprits: ""
+            sprites: ""
 
         }
         this.previsaoDoTempo = this.previsaoDoTempo.bind(this)
@@ -33,19 +34,23 @@ export default class Conversor extends React.Component {
         let key = '71d469ad633462a165133b9c0d63b59f';
         let cidade = (this.state.cidade).replace(" ", "+")
         let url = `http://api.openweathermap.org/data/2.5/weather?q=${cidade}&APPID=${key}`
+        let nomeCidade
+        let tempInCelsius
+        let estaChovendo
+
         fetch(url)
             .then((data) => {
                 return data.json();
             })
             .then((data) => {
-                let tempInCelsius = (data.main.temp - 273.15).toFixed(1);
-                let estaChovendo = (data.weather[0].main)
+                tempInCelsius = (data.main.temp - 273.15).toFixed(1);
+                estaChovendo = (data.weather[0].main)
 
                 if (estaChovendo === "Rain") {
                     console.log("chuva")
                 }
 
-                let nomeCidade = (this.state.cidade)
+                nomeCidade = (this.state.cidade)
                 this.setState({ nomeCidade })
                 this.setState({ estaChovendo })
                 this.setState({ tempInCelsius })
@@ -57,6 +62,31 @@ export default class Conversor extends React.Component {
                 this.imagens(this.state.estaChovendo)
                 this.exibir()
             })
+
+            .catch((err) => {
+                nomeCidade = `Cidade não identificada. Tente novamente.`
+                tempInCelsius = '-'
+                estaChovendo = '-'
+                let imagem = ""
+                let pokemon = '-'
+                let tipo ='-'
+                let sprites ='-'
+
+                this.state.pokemon = pokemon;
+                this.state.pokemonType = tipo;
+                this.state.sprites = sprites;
+                
+
+                this.state.imagem = imagem;
+
+                this.setState({nomeCidade})
+                this.setState({tempInCelsius})
+                this.setState({estaChovendo})
+                this.setState({imagem})
+              
+                console.log(this.state)
+                this.exibir()
+              })
 
 
     }
@@ -88,6 +118,9 @@ export default class Conversor extends React.Component {
         let url = this.state.urlpokemon
         console.log(url)
         console.log(this.state)
+
+        let imagemNull = document.querySelector('.imagemNull');
+       
         fetch(url)
             .then((data) => {
                 return data.json();
@@ -96,6 +129,15 @@ export default class Conversor extends React.Component {
 
                 let sprites = data.sprites.other.["official-artwork"].front_default
                 this.setState({ sprites })
+
+                document.getElementById("imagemPokemon").style.display = 'block';
+                imagemNull.style.display = 'none'
+                if (this.state.sprites === null)
+                {
+                    document.getElementById("imagemPokemon").style.display = 'none';
+                    imagemNull.style.display = 'block'
+                    imagemNull.innerText = `Imagem não disponível`;
+                }
                 console.log(this.state)
 
             })
@@ -175,8 +217,11 @@ export default class Conversor extends React.Component {
         
             <div id="conversor">
                 <header>
-
-                    <h1>Encontre o seu Pokémon!</h1>
+                    <div id="titulo">
+                    <h1>Encontre o seu </h1>
+                    <img id="logo" src={Pokemon}></img> 
+                </div>
+                
                 <div>
                     <label nomeCidade> Digite o nome da cidade: </label>
                     <input id="nomeCidade" type="text" onChange={(event) => { this.setState({ cidade: event.target.value }) }}></input>
@@ -187,15 +232,18 @@ export default class Conversor extends React.Component {
                 <div id="exibicao">
                     <div id="Pokemon">
                         <div id="PokemonConteudo">
+                            <div>
                             <img id="imagemPokemon" src={this.state.sprites}></img>
-                            <h3>Pokémon: {this.state.pokemon}</h3>
-                            <h3>Tipo: {this.state.pokemonType}</h3>
+                            <h5 className="imagemNull"></h5>
+                            </div>
+                            <h4>Pokémon: {this.state.pokemon}</h4>
+                            <h4>Tipo: {this.state.pokemonType}</h4>
                         </div>
                     </div>
 
                     <div id="Previsao">
                         <div id="PrevisaoConteudo">
-                            <h3>Cidade: {this.state.nomeCidade}</h3>
+                            <h3 id="city">Cidade: {this.state.nomeCidade}</h3>
 
                             <h3>Temperatura: {this.state.tempInCelsius}°C</h3>
                             <div id="estado">
