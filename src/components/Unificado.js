@@ -63,7 +63,7 @@ export default class Conversor extends React.Component {
             })
 
             .catch((err) => {
-                cityName = `city não identificada. Tente novamente.`
+                cityName = `Cidade não identificada. Tente novamente.`
                 tempInCelsius = '-'
                 weatherType = '-'
                 let image = ""
