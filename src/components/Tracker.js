@@ -67,7 +67,6 @@ export default class Tracker extends React.Component {
                 this.setState({ tempInCelsius: '-' })
                 this.setState({ weatherType: '-' })
                 this.setState({ pokemon: '-' })
-                this.setState({ type: '-' })
                 this.setState({ pokemonType: '-' })
                 this.setState({ sprites: null })
                 this.setState({ image: null })
