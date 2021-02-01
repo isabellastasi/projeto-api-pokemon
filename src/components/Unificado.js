@@ -134,7 +134,7 @@ export default class Conversor extends React.Component {
                 if (this.state.sprites === null) {
                     document.getElementById("imagePokemon").style.display = 'none';
                     imageNull.style.display = 'block'
-                    imageNull.innerText = `image não disponível`;
+                    imageNull.innerText = `Imagem não disponível`;
                 }
                 console.log(this.state)
 
