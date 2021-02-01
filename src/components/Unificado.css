@@ -1,15 +1,14 @@
-
 #conversor{
     width:75%;
     height: auto;
 }
 
-#imagemTemperatura{
+#imageTemperature{
     height: 50px;
 }
 
 
-#imagemPokemon{
+#imagePokemon{
     height: 200px;
     width: 200px;
     border-radius: 10px;
@@ -27,7 +26,7 @@ h3, h4, h5{
     font-family:'Courier New';
 }
 
-#Pokemon{
+#pokemon{
     
     
     width: 350px;
@@ -41,7 +40,7 @@ h3, h4, h5{
     border: solid rgb(206, 200, 200) 10px;
     }
 
-#Previsao{
+#forecast{
   
     height: fit-content;
     width: 350px;
@@ -52,7 +51,7 @@ h3, h4, h5{
     padding: 15px;
 }
 
-#exibicao{
+#exhibition{
     
     display: flex;
     flex-direction: row;
@@ -80,17 +79,18 @@ header{
     align-items: center;
 }
 
-#PokemonConteudo{
+#pokemonContent{
 
     visibility: hidden;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
 }
 
 
-#PrevisaoConteudo{
+#forecastContent{
 
     visibility: hidden;
     display: flex;
@@ -106,7 +106,7 @@ header{
     margin: 0px 10px
 }
 
-#estado{
+#status{
 
     display: flex;
     flex-direction: row;
@@ -114,7 +114,7 @@ header{
 
 }
 
-#PokemonConteudo div{
+#pokemonContent div{
 
 width: 200px;
 height: 200px;
@@ -124,7 +124,7 @@ justify-content: center;
 align-content: center;
 }
 
-#titulo{
+#title{
 
     display: flex;
     align-items:baseline;
@@ -137,7 +137,7 @@ align-content: center;
     height: 50px;
 }
 
-#nomeCidade{
+#cityName{
 
     font-family: Courier;
     border-radius: 10%;

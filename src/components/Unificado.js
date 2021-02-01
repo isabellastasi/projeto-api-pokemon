@@ -3,6 +3,9 @@ import Rain from './imagens/Rainw.png'
 import Snow from './imagens/Snoww.png'
 import Clouds from './imagens/Cloudsw.png'
 import Clear from './imagens/Clearw.png'
+import Haze from './imagens/Hazew.png'
+import Fog from './imagens/Fogw.png'
+import Mist from './imagens/Mistw.png'
 import Pokemon from './imagens/pokemon-logo.png'
 import './Unificado.css'
 
@@ -14,29 +17,29 @@ export default class Conversor extends React.Component {
         super(props);
 
         this.state = {
-            cidade: "",
+            city: "",
             tempInCelsius: "",
-            estaChovendo: "",
+            weatherType: "",
             pokemon: "",
             pokemonType: "",
-            imagem: "",
+            image: "",
             sprites: ""
 
         }
-        this.previsaoDoTempo = this.previsaoDoTempo.bind(this)
+        this.weatherForecast = this.weatherForecast.bind(this)
         this.buscaPokemon = this.buscaPokemon.bind(this)
-        this.imagem = this.imagem.bind(this)
-        this.verificaTemperatura = this.verificaTemperatura.bind(this)
+        this.image = this.image.bind(this)
+        this.checkTemperature = this.checkTemperature.bind(this)
     }
 
 
-    previsaoDoTempo() {
+    weatherForecast() {
         let key = '71d469ad633462a165133b9c0d63b59f';
-        let cidade = (this.state.cidade).replace(" ", "+")
-        let url = `http://api.openweathermap.org/data/2.5/weather?q=${cidade}&APPID=${key}`
-        let nomeCidade
+        let city = (this.state.city).replace(" ", "+")
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}`
+        let cityName
         let tempInCelsius
-        let estaChovendo
+        let weatherType
 
         fetch(url)
             .then((data) => {
@@ -44,49 +47,45 @@ export default class Conversor extends React.Component {
             })
             .then((data) => {
                 tempInCelsius = (data.main.temp - 273.15).toFixed(1);
-                estaChovendo = (data.weather[0].main)
+               weatherType = (data.weather[0].main)
 
-                if (estaChovendo === "Rain") {
-                    console.log("chuva")
-                }
-
-                nomeCidade = (this.state.cidade)
-                this.setState({ nomeCidade })
-                this.setState({ estaChovendo })
+                cityName = (this.state.city)
+                this.setState({ cityName })
+                this.setState({weatherType })
                 this.setState({ tempInCelsius })
 
                 console.log(this.state)
                 console.log(parseFloat(this.state.tempInCelsius))
-                console.log(this.state.estaChovendo)
-                this.verificaTemperatura(parseFloat(this.state.tempInCelsius))
-                this.imagens(this.state.estaChovendo)
+                console.log(this.state.weatherType)
+                this.checkTemperature(parseFloat(this.state.tempInCelsius))
+                this.imagens(this.state.weatherType)
                 this.exibir()
             })
 
             .catch((err) => {
-                nomeCidade = `Cidade não identificada. Tente novamente.`
+                cityName = `city não identificada. Tente novamente.`
                 tempInCelsius = '-'
-                estaChovendo = '-'
-                let imagem = ""
+                weatherType = '-'
+                let image = ""
                 let pokemon = '-'
-                let tipo ='-'
-                let sprites ='-'
+                let type = '-'
+                let sprites = '-'
 
                 this.state.pokemon = pokemon;
-                this.state.pokemonType = tipo;
+                this.state.pokemonType = type;
                 this.state.sprites = sprites;
-                
 
-                this.state.imagem = imagem;
 
-                this.setState({nomeCidade})
-                this.setState({tempInCelsius})
-                this.setState({estaChovendo})
-                this.setState({imagem})
-              
+                this.state.image = image;
+
+                this.setState({ cityName })
+                this.setState({ tempInCelsius })
+                this.setState({weatherType })
+                this.setState({ image })
+
                 console.log(this.state)
                 this.exibir()
-              })
+            })
 
 
     }
@@ -108,19 +107,19 @@ export default class Conversor extends React.Component {
                 this.setState({ pokemon })
                 this.setState({ urlpokemon })
                 console.log(this.state)
-                this.imagem()
+                this.image()
             })
 
 
     }
-    imagem() {
+    image() {
 
         let url = this.state.urlpokemon
         console.log(url)
         console.log(this.state)
 
-        let imagemNull = document.querySelector('.imagemNull');
-       
+        let imageNull = document.querySelector('.imageNull');
+
         fetch(url)
             .then((data) => {
                 return data.json();
@@ -130,13 +129,12 @@ export default class Conversor extends React.Component {
                 let sprites = data.sprites.other.["official-artwork"].front_default
                 this.setState({ sprites })
 
-                document.getElementById("imagemPokemon").style.display = 'block';
-                imagemNull.style.display = 'none'
-                if (this.state.sprites === null)
-                {
-                    document.getElementById("imagemPokemon").style.display = 'none';
-                    imagemNull.style.display = 'block'
-                    imagemNull.innerText = `Imagem não disponível`;
+                document.getElementById("imagePokemon").style.display = 'block';
+                imageNull.style.display = 'none'
+                if (this.state.sprites === null) {
+                    document.getElementById("imagePokemon").style.display = 'none';
+                    imageNull.style.display = 'block'
+                    imageNull.innerText = `image não disponível`;
                 }
                 console.log(this.state)
 
@@ -144,33 +142,33 @@ export default class Conversor extends React.Component {
 
     }
 
-    verificaTemperatura(temperatura) {
+    checkTemperature(temperature) {
 
         let pokemonType = "";
 
-        if (this.state.estaChovendo === "Rain") {
+        if (this.state.weatherType === "Rain") {
             pokemonType = "electric";
         }
-        else if (temperatura < 5) {
+        else if (temperature < 5) {
 
             pokemonType = "ice";
         }
-        else if (temperatura >= 5 && temperatura < 10) {
+        else if (temperature >= 5 && temperature < 10) {
             pokemonType = "water";
         }
-        else if (temperatura >= 12 && temperatura < 15) {
+        else if (temperature >= 12 && temperature < 15) {
             pokemonType = "grass";
         }
-        else if (temperatura >= 15 && temperatura < 21) {
+        else if (temperature >= 15 && temperature < 21) {
             pokemonType = "ground";
         }
-        else if (temperatura >= 23 && temperatura < 27) {
+        else if (temperature >= 23 && temperature < 27) {
             pokemonType = "bug";
         }
 
-        else if (temperatura >= 27 && temperatura <= 33) { pokemonType = "rock"; }
+        else if (temperature >= 27 && temperature <= 33) { pokemonType = "rock"; }
 
-        else if (temperatura > 33) {
+        else if (temperature > 33) {
             pokemonType = "fire";
         }
         else {
@@ -185,71 +183,83 @@ export default class Conversor extends React.Component {
     }
 
     imagens(tempo) {
-        let imagem;
+        let image;
         console.log(tempo)
         switch (tempo) {
             case 'Rain':
-                imagem = Rain;
+                image = Rain;
                 break;
             case 'Clouds':
-                imagem = Clouds;
+                image = Clouds;
                 break;
             case 'Clear':
-                imagem = Clear;
+                image = Clear;
                 break;
             case 'Snow':
-                imagem = Snow;
+                image = Snow;
                 break;
+            case 'Haze':
+                image = Haze;
+                break;
+
+            case 'Fog':
+                image = Fog;
+                break;
+
+            case 'Mist':
+                image = Mist;
+                break;
+
             default:
-                imagem = Rain;
+
                 break;
         }
-        this.setState({ imagem })
+        this.setState({ image })
         console.log(this.state)
     }
 
     exibir() {
-        document.getElementById("PokemonConteudo").style.visibility = 'visible'
-        document.getElementById("PrevisaoConteudo").style.visibility = 'visible'
+        document.getElementById("pokemonContent").style.visibility = 'visible'
+        document.getElementById("forecastContent").style.visibility = 'visible'
     }
     render() {
         return (
-        
+
             <div id="conversor">
                 <header>
-                    <div id="titulo">
-                    <h1>Encontre o seu </h1>
-                    <img id="logo" src={Pokemon}></img> 
-                </div>
-                
-                <div>
-                    <label nomeCidade> Digite o nome da cidade: </label>
-                    <input id="nomeCidade" type="text" onChange={(event) => { this.setState({ cidade: event.target.value }) }}></input>
-                    <input id="botao" type="button" value="Ok" onClick={this.previsaoDoTempo}></input>
+                    <div id="title">
+                        <h1>Encontre o seu </h1>
+                        <img id="logo" src={Pokemon}></img>
+                    </div>
+
+                    <div>
+                        <label cityName> Digite o nome da cidade: </label>
+                        <input id="cityName" type="text" onChange={(event) => { this.setState({ city: event.target.value }) }}></input>
+                        <input id="botao" type="button" value="Ok" onClick={this.weatherForecast}></input>
                     </div>
                 </header>
 
-                <div id="exibicao">
-                    <div id="Pokemon">
-                        <div id="PokemonConteudo">
+                <div id="exhibition">
+                    <div id="pokemon">
+                        <div id="pokemonContent">
                             <div>
-                            <img id="imagemPokemon" src={this.state.sprites}></img>
-                            <h5 className="imagemNull"></h5>
+                                <img id="imagePokemon" src={this.state.sprites}></img>
+                                <h5 className="imageNull"></h5>
                             </div>
                             <h4>Pokémon: {this.state.pokemon}</h4>
                             <h4>Tipo: {this.state.pokemonType}</h4>
                         </div>
                     </div>
 
-                    <div id="Previsao">
-                        <div id="PrevisaoConteudo">
-                            <h3 id="city">Cidade: {this.state.nomeCidade}</h3>
+                    <div id="forecast">
+                        <div id="forecastContent">
+                            <h3 id="city">Cidade: {this.state.cityName}</h3>
 
                             <h3>Temperatura: {this.state.tempInCelsius}°C</h3>
-                            <div id="estado">
-                                <img id="imagemTemperatura" src={this.state.imagem} ></img>
+                            <div id="status">
+                                <img id="imageTemperature" src={this.state.image} ></img>
 
-                                <h3>{this.state.estaChovendo}</h3>
+                                <h3>{this.state.weatherType}</h3>
                             </div>
                         </div>
                     </div>
@@ -259,7 +269,7 @@ export default class Conversor extends React.Component {
 
             </div>
 
-            
+
 
         )
 
